@@ -1,8 +1,19 @@
 import { Link } from 'react-router-dom'
 import signUpImage from '../../assets/images/login/login.svg'
 import NavBar from '../../Components/NavBar/NavBar'
+import { useContext } from 'react'
+import { AppContext } from '../../AppContext/AppContextProvider'
 
 const SignIn = () => {
+  const { signIn } = useContext(AppContext);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const Form = e.target;
+    const email = Form.email.value;
+    const password = Form.password.value;
+    signIn(email, password)
+  }
   return (
     <div className='relative'>
       <div className='z-40 absolute w-full'>
@@ -14,19 +25,19 @@ const SignIn = () => {
             <img src={signUpImage} alt="" />
           </div>
           <div className="card flex-shrink-0 lg:w-full w-[90vw] lg:max-w-sm shadow-lg bg-base-100">
-            <form className="card-body pb-3">
+            <form onSubmit={handleSignIn} className="card-body pb-3">
               <h1 className="text-3xl text-center font-bold">SignIn Now!</h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
-                <input type="email" placeholder="email" className="focus:outline-none input input-bordered" required />
+                <input type="email" placeholder="email" name='email' className="focus:outline-none input input-bordered" required />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input type="password" placeholder="password" className="focus:outline-none input input-bordered" required />
+                <input type="password" placeholder="password" name='password' className="focus:outline-none input input-bordered" required />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                 </label>
