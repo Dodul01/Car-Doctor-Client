@@ -9,6 +9,9 @@ import Blog from "../Pages/Blog/Blog";
 import SignUp from "../Pages/SignUp/SignUp";
 import SignIn from "../Pages/SignIn/SignIn";
 import PrivateRoute from "./PrivateRoute";
+import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
+import CheckOut from "../Pages/CheckOut/CheckOut";
+import Bookings from "../Pages/Bookings/Bookings";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        loader: () => fetch('./services.json'),
+        loader: () => fetch('http://localhost:5000/services'),
         element: <Home />
       },
       {
@@ -32,6 +35,18 @@ const router = createBrowserRouter([
       {
         path: '/services',
         element: <Services />
+      },
+      {
+        path: '/serviceDetails/:id',
+        element: <ServiceDetails />
+      },
+      {
+        path: '/checkOut/:id',
+        element: <CheckOut />
+      },
+      {
+        path: '/bookings',
+        element: <Bookings />
       },
       {
         path: '/blog',

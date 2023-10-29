@@ -1,14 +1,25 @@
 import { NavLink } from 'react-router-dom'
 import { HiOutlineMenuAlt3} from 'react-icons/hi';
 import logo from "../../assets/logo.svg"
+import { useContext } from 'react';
+import { AppContext } from '../../AppContext/AppContextProvider';
 
 const NavBar = () => {
+  const {user, signOutUser} = useContext(AppContext);
+
   const link = <div className='flex lg:flex-row flex-col'>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/'>Home </NavLink>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/order'>Order </NavLink>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/about'>Order Review</NavLink>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/services'>Manage Inventor </NavLink>
+    {
+      user === null ? 
+      <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/signUp'>SignUp</NavLink>
+      :
+      <button onClick={signOutUser} className='mx-1 lg:bg-transparent lg:p-0 rounded-lg p-2 lg:text-black text-white bg-[#FF3811] lg:hover:text-[#FF3811] text-base'>Sign Out</button>
+    }
    </div>
+
 
   return (
     <nav className="navbar flex items-center justify-between bg-base-100 max-w-7xl mx-auto z-40">
