@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Nav from '../../Components/Nav/Nav'
 import { AppContext } from '../../AppContext/AppContextProvider'
+import axios from 'axios';
 
 const Bookings = () => {
   const { user } = useContext(AppContext);
   const [bookings, setBookings] = useState();
+  const url = `http://localhost:5000/orders?email=${user?.email}`
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`)
-      .then(res => res.json())
-      .then(data => setBookings(data));
-  }, [user])
+    axios.get(url, { withCredentials: true })
+      .then(res => {
+        setBookings(res.data)
+      })
+  }, [user, url])
+
+
   return (
     <div>
       <Nav />
@@ -37,9 +42,9 @@ const Bookings = () => {
               </thead>
               <tbody>
                 {/* row 1 */}
-                {bookings?.map((booking) => {
+                {bookings?.map((booking, idx) => {
 
-                  return <tr>
+                  return <tr key={idx}>
                     <th>
                       <label>
                         <input type="checkbox" className="checkbox" />

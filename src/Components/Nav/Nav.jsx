@@ -6,6 +6,14 @@ import { AppContext } from '../../AppContext/AppContextProvider';
 
 const Nav = () => {
   const { user, signOutUser } = useContext(AppContext);
+
+  const handleSignOut = () =>{
+    signOutUser()
+    .then(()=>{
+      alert('signout sucessfuly')
+    })
+  }
+  
   const link = <div className='flex lg:flex-row flex-col'>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/'>Home</NavLink>
     <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/about'>About</NavLink>
@@ -17,7 +25,7 @@ const Nav = () => {
         <NavLink className="mx-1 hover:text-[#FF3811] text-base" to='/signUp'>SignUp</NavLink>
         : <>
           <Link to='/bookings' className='mx-1 lg:bg-transparent lg:p-0 rounded-lg p-2 lg:text-black text-white bg-[#FF3811] lg:hover:text-[#FF3811] text-base'>Bookings</Link>
-          <button onClick={signOutUser} className='mx-1 lg:bg-transparent lg:p-0 rounded-lg p-2 lg:text-black text-white bg-[#FF3811] lg:hover:text-[#FF3811] text-base'>Sign Out</button>
+          <button onClick={handleSignOut} className='mx-1 lg:bg-transparent lg:p-0 rounded-lg p-2 lg:text-black text-white bg-[#FF3811] lg:hover:text-[#FF3811] text-base'>Sign Out</button>
         </>
     }
   </div>

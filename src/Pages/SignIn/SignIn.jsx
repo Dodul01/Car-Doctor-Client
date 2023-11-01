@@ -1,19 +1,39 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import signUpImage from '../../assets/images/login/login.svg'
 import NavBar from '../../Components/NavBar/NavBar'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AppContext } from '../../AppContext/AppContextProvider'
+import axios from 'axios'
 
 const SignIn = () => {
   const { signIn } = useContext(AppContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
     const Form = e.target;
     const email = Form.email.value;
     const password = Form.password.value;
+
+
     signIn(email, password)
+      .then(result => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+        const user = { email };
+        
+        //get access token
+        axios.post(`http://localhost:5000/jwt`, user, {withCredentials: true})
+        .then(response => {
+          if(response.data.success){
+            navigate(location?.state ? location?.state : '/')
+          }
+        })
+      })
+      .catch(error => console.log(error));
   }
+
   return (
     <div className='relative'>
       <div className='z-40 absolute w-full'>

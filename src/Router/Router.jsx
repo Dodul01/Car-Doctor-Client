@@ -30,11 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/contact',
-        element: <Contact />
+        element: <PrivateRoute><Contact /></PrivateRoute>
       },
       {
         path: '/services',
-        element: <Services />
+        element: <PrivateRoute><Services /></PrivateRoute>
       },
       {
         path: '/serviceDetails/:id',
@@ -42,11 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/checkOut/:id',
-        element: <CheckOut />
+        element: <PrivateRoute><CheckOut /></PrivateRoute>
       },
       {
         path: '/bookings',
-        element: <Bookings />
+        element: <PrivateRoute><Bookings /></PrivateRoute>
       },
       {
         path: '/blog',
